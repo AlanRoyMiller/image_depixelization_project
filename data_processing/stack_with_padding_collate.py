@@ -27,9 +27,7 @@ def stack_with_padding(batch_as_list: list):
 
         image_files.append(img_file)
 
-    
-
     stacked_pixelated_images = torch.from_numpy(np.array(stacked_pixelated_images))
-    stacked_known_arrays = torch.from_numpy(np.array(stacked_pixelated_images))
+    stacked_known_arrays = torch.from_numpy(np.array(stacked_known_arrays))
 
     return stacked_pixelated_images, stacked_known_arrays, target_arrays, image_files

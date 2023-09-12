@@ -16,9 +16,9 @@ def to_grayscale(pil_image: np.ndarray) -> np.ndarray:
         pil_image_copy = pil_image.copy()
         np.expand_dims(pil_image_copy, axis=0)
         return pil_image_copy
-
+    
     elif pil_image.shape[2] != 3:
-        raise ValueError
+        raise ValueError("Image must have Shape (H, W, 3)")
 
     pil_image_copy = pil_image.copy() / 255.0
 

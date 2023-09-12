@@ -28,7 +28,9 @@ class RandomImagePixelationDataset(Dataset):
 
     def __getitem__(self, index):
         with Image.open(self.image_dir[index]) as image_file:
+            # image_file = random_augmented_image(image_file, image_size=max(image_file.size), seed=index)
             image_file = np.array(image_file, dtype=np.float32)
+
         image_file = to_grayscale(image_file)
         rng = np.random.default_rng(seed=index)
 
@@ -40,7 +42,7 @@ class RandomImagePixelationDataset(Dataset):
 
 
         pixelated_image, known_array, target_array,  = prepare_image(image_file, x, y, width, height, size)
-        pixelated_image = random_augmented_image(pixelated_image, image_size=max(pixelated_image.shape), seed=index)
+        
 
         return pixelated_image, known_array, target_array, self.image_dir[index]
 

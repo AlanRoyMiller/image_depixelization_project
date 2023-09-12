@@ -1,9 +1,8 @@
-
 import torch
 from torchvision import transforms
 from matplotlib import pyplot as plt
 
-def visualize_predictions(network: torch.nn.Module, test_loader: torch.utils.data.DataLoader, output_dir: str):
+def visualize_predictions(network: torch.nn.Module, test_loader: torch.utils.data.DataLoader, output_dir: str, amount_of_predictions: int):
     """Function to visualize predictions made by the trained model.
     
     This function takes a trained neural network and a DataLoader containing the test data,
@@ -14,6 +13,7 @@ def visualize_predictions(network: torch.nn.Module, test_loader: torch.utils.dat
         network (torch.nn.Module): The trained neural network.
         test_loader (torch.utils.data.DataLoader): DataLoader containing the test data.
         output_dir (str): Directory to save the visualization images.
+        amount_of_predictions (int): The number of predictions to make.
     
     Returns:
         None
@@ -28,8 +28,17 @@ def visualize_predictions(network: torch.nn.Module, test_loader: torch.utils.dat
         transforms.Grayscale(num_output_channels=1),
     ])
     
+    test_loader_length = len(test_loader.dataset)
+    message = f"Making {min(test_loader_length, amount_of_predictions)} visualizations"
+    if amount_of_predictions > test_loader_length:
+        message += f" instead of {amount_of_predictions} due to test loader being of shorter size."
+    print(message)
+
     with torch.no_grad():
         for i, (input_tensor, _) in enumerate(test_loader):
+            if i >= amount_of_predictions:
+                break
+                
             input_tensor = input_tensor.to(device)
             output = network(input_tensor)
             

@@ -33,7 +33,7 @@ class SimpleCNN(torch.nn.Module):
 
         self.hidden_layers = nn.Sequential(*hidden_layers)
         self.adaptive_pool = nn.AdaptiveAvgPool2d((1, 1))
-        self.output_layer = nn.Linear(hidden_channels, num_classes)
+        # self.output_layer = nn.Linear(hidden_channels, num_classes)
 
     def forward(self, input_images: torch.Tensor) -> torch.Tensor:
         output = self.hidden_layers(input_images)

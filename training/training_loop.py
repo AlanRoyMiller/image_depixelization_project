@@ -5,7 +5,7 @@ from tqdm import tqdm
 def training_loop(model_save_path: str, 
         network: torch.nn.Module, 
         train_data: torch.utils.data.Dataset, 
-        eval_data: torch.utils.data.Dataset, 
+        val_data: torch.utils.data.Dataset, 
         num_epochs: int, 
         show_progress: bool = True
     ):  
@@ -33,7 +33,7 @@ def training_loop(model_save_path: str,
     print(f"Using {device}.")
 
 
-    optimizer = torch.optim.Adam(network.parameters(), lr=0.00001)
+    optimizer = torch.optim.Adam(network.parameters(), lr=0.001)
     loss_function = torch.nn.MSELoss()
 
 
@@ -54,11 +54,21 @@ def training_loop(model_save_path: str,
 
         for input_tensor, known_array, target_tensor, image_dir in train_data:
             input_tensor = input_tensor.to(device)
+            known_array = known_array.to(device)
+            target_tensor = torch.stack([t.clone().detach() for t in target_tensor]).to(device)
 
+            # Getting the network's output
             output = network(input_tensor)
 
-            
-            loss = loss_function(output, torch.stack([t.clone().detach() for t in target_tensor]).to(device))
+            # Applying the known_array mask to isolate the pixelated area in both output and target tensors
+            output_masked = output * known_array.float()
+            target_masked = target_tensor * known_array.float()
+
+
+
+            # Calculating the loss only over the pixelated area
+            loss = loss_function(output_masked, target_masked)
+
 
 
 
@@ -74,9 +84,10 @@ def training_loop(model_save_path: str,
         losses_train_dataloader.append(sum(average_batch_loss) / len(average_batch_loss))
 
         network.eval()
+        average_batch_loss_eval = []
+
         with torch.no_grad():
-            average_batch_loss_eval = []
-            for input_tensor, target_tensor in eval_data:
+            for input_tensor, target_tensor in val_data:
                 input_tensor, target_tensor = input_tensor.to(device), target_tensor.to(device)
                 output = network(input_tensor)
                 loss = loss_function(output, torch.stack([t.clone().detach() for t in target_tensor]).to(device))

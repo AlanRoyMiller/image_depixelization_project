@@ -1,6 +1,6 @@
 
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from model.simple_cnn import SimpleCNN
+from models.simple_cnn import SimpleCNN
 from torchvision import transforms
 from PIL import Image
 import torch
