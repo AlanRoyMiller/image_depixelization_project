@@ -20,3 +20,5 @@ PyTorch 1.8 or later
 torchvision
 PIL
 NumPy
+
+![alt text](https://github.com/AlanRoyMiller/image_depixelization_project/readme images/main/known_array.png?raw=true)
