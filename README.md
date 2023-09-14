@@ -21,4 +21,5 @@ torchvision
 PIL
 NumPy
 
-![alt text]([https://github.com/AlanRoyMiller/image_depixelization_project/blob/main/readme%20images/known_array.png)
+![Model][https://github.com/AlanRoyMiller/image_depixelization_project/blob/main/readme%20images/known_array.png)
+
