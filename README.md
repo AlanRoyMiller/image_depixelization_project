@@ -21,8 +21,6 @@ torchvision
 PIL
 NumPy
 
-![Alt Text](readme_images/pixelated_image.jpg)
-![Alt Text](readme_images/non_pixelated_image.jpg)
-![Alt Text](readme_images/known_array.jpg)
-![Alt Text](readme_images/target_array.jpg)
+![Alt Text](final_figure.jpg)
+
 
