@@ -21,5 +21,8 @@ torchvision
 PIL
 NumPy
 
-![Model][https://github.com/AlanRoyMiller/image_depixelization_project/blob/main/readme%20images/known_array.png)
+![Alt Text](readme_images/pixelated_image.jpg)
+![Alt Text](readme_images/non_pixelated_image.jpg)
+![Alt Text](readme_images/known_array.jpg)
+![Alt Text](readme_images/target_array.jpg)
 
